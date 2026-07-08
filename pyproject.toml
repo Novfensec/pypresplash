@@ -1,0 +1,23 @@
+[build-system]
+requires = ["scikit-build-core>=0.4.3", "pybind11"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "pypresplash"
+version = "1.0.0"
+description = "A native Windows GDI+ splash screen module with smooth animations and transparency."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+  { name = "Kartavya Shukla", email = "novfensec@protonmail.com" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+]
+dependencies = []
+
+[tool.scikit-build]
+cmake.build-type = "Release"
