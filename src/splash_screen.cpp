@@ -14,6 +14,7 @@ static SplashScreen *g_pSplash = nullptr;
 
 SplashScreen::SplashScreen()
 {
+    SetProcessDPIAware();
     m_hInstance = GetModuleHandle(nullptr);
     GdiplusStartupInput gdiplusStartupInput;
     GdiplusStartup(&m_gdiplusToken, &gdiplusStartupInput, nullptr);
@@ -55,7 +56,6 @@ bool SplashScreen::CreateWindowExW()
     if (!m_hWnd)
         return false;
 
-    // Optional: Keep rounded corners, or set to 0,0 for sharp corners
     HRGN hRgn = CreateRoundRectRgn(0, 0, m_width, m_height, 0, 0);
     SetWindowRgn(m_hWnd, hRgn, TRUE);
 
@@ -221,7 +221,6 @@ void SplashScreen::Render()
         }
     }
 
-    // 4. Update Window
     BLENDFUNCTION blend = {AC_SRC_OVER, 0, 255, AC_SRC_ALPHA};
     POINT ptZero = {0, 0};
     UpdateLayeredWindow(m_hWnd, hdcScreen, &ptOrigin, &size,
@@ -241,7 +240,6 @@ void SplashScreen::SetProgress(int value, const std::wstring &message, const std
     m_targetProgress = value;
     m_progressMessage = message;
 
-    // Helper to parse hex strings safely
     auto parseHex = [](const std::string &hex, int &r, int &g, int &b)
     {
         std::string h = hex;
