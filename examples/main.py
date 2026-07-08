@@ -6,6 +6,7 @@ def main():
     splash = pypresplash.SplashScreen()
     splash.set_font("Verdana", 12)
 
+    # use any image format that works
     success = splash.show(
         "presplash.png", 0, 600, 300, "cover"
     )
