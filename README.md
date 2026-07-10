@@ -1,6 +1,6 @@
 # PyPreSplash
 
-A lightning-fast, native Windows splash screen module for Python applications. 
+A lightning-fast, splash screen module for Python applications. 
 
 ### Why does this exist?
 Python applications (especially those using heavy libraries or frameworks like PyQt/Kivy) take a few seconds to start up. Without a splash screen, users might click your app icon, see nothing happen for 4 seconds, assume it's broken, and click it three more times. 
