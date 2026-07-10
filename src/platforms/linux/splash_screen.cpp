@@ -245,3 +245,9 @@ void SplashScreen::Hide()
         g_x11.display = nullptr;
     }
 }
+
+void SplashScreen::SetFont(const std::string &fontFamily, int fontSize)
+{
+    m_fontFamily = fontFamily;
+    m_fontSize = fontSize;
+}
