@@ -8,7 +8,7 @@ def main():
 
     # use any image format that works
     success = splash.show(
-        "presplash.png", 0, 600, 300, "cover"
+        "bannernfs.png", 0, 720, 405, "cover"
     )
 
     if not success:
@@ -24,13 +24,12 @@ def main():
     ]
 
     for i, stage_msg in enumerate(stages):
-        progress = int((i / len(stages)) * 100)
+        progress = int(((i+1) / len(stages)) * 100)
 
-        splash.set_progress(progress, stage_msg, "#0f62fe", "#000000")
+        splash.set_progress(progress, stage_msg, "#0f62fe", "#ffffff")
 
         time.sleep(0.8)
 
-    splash.set_progress(100, "Ready!", "#42be65", "#000000")
     time.sleep(0.5)
 
     splash.hide()
