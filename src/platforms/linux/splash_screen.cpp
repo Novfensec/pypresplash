@@ -137,6 +137,8 @@ void SplashScreen::Render()
 
     cairo_t *cr = cairo_create(g_x11.x_surface);
 
+    cairo_push_group(cr);
+
     cairo_set_operator(cr, CAIRO_OPERATOR_CLEAR);
     cairo_paint(cr);
     cairo_set_operator(cr, CAIRO_OPERATOR_OVER);
@@ -179,6 +181,9 @@ void SplashScreen::Render()
             cairo_show_text(cr, displayText.c_str());
         }
     }
+
+    cairo_pop_group_to_source(cr);
+    cairo_paint(cr);
 
     cairo_surface_flush(g_x11.x_surface);
     cairo_destroy(cr);
