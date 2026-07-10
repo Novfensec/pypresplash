@@ -4,7 +4,7 @@ build-backend = "scikit_build_core.build"
 
 [project]
 name = "pypresplash"
-version = "1.0.1"
+version = "1.0.2"
 description = "A cross-platform splash screen module with smooth animations and transparency."
 readme = "README.md"
 requires-python = ">=3.11"
