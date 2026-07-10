@@ -198,6 +198,27 @@ void SplashScreen::SetProgress(int value, const std::string &message, const std:
     m_targetProgress = value;
     m_progressMessage = message;
 
+    auto parseHex = [](const std::string &hex, int &r, int &g, int &b)
+    {
+        try
+        {
+            if (hex.length() >= 7 && hex[0] == '#')
+            {
+                r = std::stoi(hex.substr(1, 2), nullptr, 16);
+                g = std::stoi(hex.substr(3, 2), nullptr, 16);
+                b = std::stoi(hex.substr(5, 2), nullptr, 16);
+            }
+        }
+        catch (...)
+        {
+            // If the user passes a bad hex string, gracefully ignore it and keep the previous color
+        }
+    };
+
+    parseHex(hexColor, m_progR, m_progG, m_progB);
+    parseHex(textColor, m_textR, m_textG, m_textB);
+
+
     if (m_currentProgress < 0.0f)
         m_currentProgress = 0.0f;
 
