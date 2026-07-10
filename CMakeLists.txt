@@ -13,6 +13,7 @@ set(SOURCES
     src/bridge.cpp
 )
 
+pybind11_add_module(pypresplash ${SOURCES})
 
 if(WIN32)
     target_compile_definitions(pypresplash PRIVATE UNICODE _UNICODE)
@@ -26,7 +27,6 @@ elseif(UNIX AND NOT APPLE)
     )
 endif()
 
-pybind11_add_module(pypresplash ${SOURCES})
 
 if(WIN32)
     target_link_libraries(pypresplash PRIVATE gdiplus user32 gdi32)
