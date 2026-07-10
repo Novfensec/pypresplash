@@ -1,4 +1,4 @@
-#include "splash_screen.h"
+#include "splash_win.h"
 #include <gdiplus.h>
 #include <sstream>
 #include <algorithm>
