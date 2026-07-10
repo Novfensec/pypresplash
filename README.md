@@ -8,6 +8,8 @@
 
 Designed specifically for heavy GUI frameworks (like PyQt, Kivy, or PySide) and data science tools, it provides immediate visual feedback to the user while Python quietly initializes your heavy libraries in the background.
 
+https://github.com/user-attachments/assets/33c90cf2-4fbc-4e2f-9e55-17a1781ab576
+
 ## The Problem It Solves
 Python applications often suffer from a noticeable startup delay. When a user launches an app, the OS waits for the Python interpreter to load massive libraries into memory before rendering the first window. Without immediate feedback, users often assume the application failed to launch.
 
