@@ -8,15 +8,35 @@ find_package(Python3 COMPONENTS Interpreter Development.Module REQUIRED)
 set(PYBIND11_FINDPYTHON ON)
 find_package(pybind11 CONFIG REQUIRED)
 
-pybind11_add_module(pypresplash 
-    src/splash_screen.cpp
+include_directories(src/include)
+set(SOURCES 
     src/bridge.cpp
 )
 
-target_include_directories(pypresplash PRIVATE src/include)
-target_compile_definitions(pypresplash PRIVATE UNICODE _UNICODE)
-target_compile_definitions(pypresplash PRIVATE NOMINMAX)
 
-target_link_libraries(pypresplash PRIVATE gdiplus user32 gdi32)
+if(WIN32)
+    target_compile_definitions(pypresplash PRIVATE UNICODE _UNICODE)
+    target_compile_definitions(pypresplash PRIVATE NOMINMAX)
+    list(APPEND SOURCES 
+        src/platforms/win/splash_screen.cpp
+    )
+elseif(UNIX AND NOT APPLE)
+    list(APPEND SOURCES 
+        src/platforms/linux/splash_screen.cpp
+    )
+endif()
+
+pybind11_add_module(pypresplash ${SOURCES})
+
+if(WIN32)
+    target_link_libraries(pypresplash PRIVATE gdiplus user32 gdi32)
+elseif(UNIX AND NOT APPLE)
+    find_package(PkgConfig REQUIRED)
+    pkg_check_modules(X11_CAIRO REQUIRED x11 cairo)
+    target_include_directories(pypresplash PRIVATE ${X11_CAIRO_INCLUDE_DIRS})
+    target_link_libraries(pypresplash PRIVATE ${X11_CAIRO_LIBRARIES})
+    target_compile_options(pypresplash PRIVATE ${X11_CAIRO_CFLAGS_OTHER})
+endif()
+
 
 install(TARGETS pypresplash DESTINATION .)

@@ -21,7 +21,7 @@ PYBIND11_MODULE(pypresplash, m) {
              py::arg("value"), 
              py::arg("message") = L"",
              py::arg("hex_color") = "#00A8FF",
-             py::arg("text_color") = "#FFFFFF", // NEW Argument
+             py::arg("text_color") = "#FFFFFF",
              "Update the progress bar with a target value (0-100), message, bar hex color, and text hex color.")
         .def("set_font", &SplashScreen::SetFont,
              py::arg("family"), 

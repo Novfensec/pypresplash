@@ -170,14 +170,12 @@ void SplashScreen::Render()
     HBITMAP hbmpMem = CreateDIBSection(hdcScreen, &bmi, DIB_RGB_COLORS, &pBits, nullptr, 0);
     HBITMAP hbmpOld = (HBITMAP)SelectObject(hdcMem, hbmpMem);
 
-    // 1. Draw Background
     HDC hdcImage = CreateCompatibleDC(hdcScreen);
     HBITMAP hbmpOldImage = (HBITMAP)SelectObject(hdcImage, m_hBitmap);
     BitBlt(hdcMem, 0, 0, m_width, m_height, hdcImage, 0, 0, SRCCOPY);
     SelectObject(hdcImage, hbmpOldImage);
     DeleteDC(hdcImage);
 
-    // 2. Draw UI using GDI+ (Fixes transparency bugs!)
     if (m_targetProgress >= 0)
     {
         Gdiplus::Graphics graphics(hdcMem);
@@ -189,8 +187,6 @@ void SplashScreen::Render()
         int barY = m_height - barHeight;
         int barWidth = m_width;
 
-
-        // Progress Bar
         int filledWidth = (int)((barWidth * m_currentProgress) / 100.0f);
         if (filledWidth > 0)
         {
@@ -198,14 +194,14 @@ void SplashScreen::Render()
             graphics.FillRectangle(&progBrush, barX, barY, filledWidth, barHeight);
         }
 
-        // 3. Draw Text
         if (!m_progressMessage.empty() || m_targetProgress >= 0)
         {
             std::wstring displayText = m_progressMessage;
-            if (m_targetProgress >= 0) {
+            if (m_targetProgress >= 0)
+            {
                 displayText += L" - " + std::to_wstring((int)m_currentProgress) + L"%";
             }
-            
+
             Gdiplus::FontFamily fontFamily(m_fontFamily.c_str());
             Gdiplus::Font font(&fontFamily, (Gdiplus::REAL)m_fontSize, Gdiplus::FontStyleRegular, Gdiplus::UnitPoint);
             Gdiplus::StringFormat format;
@@ -214,8 +210,7 @@ void SplashScreen::Render()
 
             int padding = 15;
             Gdiplus::RectF textRect((Gdiplus::REAL)padding, (Gdiplus::REAL)(barY - 40), (Gdiplus::REAL)(m_width - padding * 2), 35.0f);
-            
-            // Just draw the pure colored text!
+
             Gdiplus::SolidBrush textBrush(Gdiplus::Color(255, m_textR, m_textG, m_textB));
             graphics.DrawString(displayText.c_str(), -1, &font, textRect, &format, &textBrush);
         }
