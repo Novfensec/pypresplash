@@ -90,7 +90,7 @@ bool SplashScreen::LoadSplashImage(const std::string &imagePath, int targetWidth
     return true;
 }
 
-bool SplashScreen::CreateWindowExW()
+bool SplashScreen::CreateWindowX11()
 {
     g_x11.display = XOpenDisplay(nullptr);
     if (!g_x11.display)
@@ -220,7 +220,7 @@ bool SplashScreen::Show(const std::string &imagePath, int timeoutMs, int width, 
 {
     if (!LoadSplashImage(imagePath, width, height, scaleMode))
         return false;
-    if (!CreateWindowExW())
+    if (!CreateWindowX11())
         return false;
     Render();
     return true;
