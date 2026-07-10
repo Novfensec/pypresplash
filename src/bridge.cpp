@@ -1,5 +1,10 @@
 #include <pybind11/pybind11.h>
-#include "splash_screen.h"
+
+#if defined(_WIN32)
+    #include "splash_win.h"
+#else
+    #include "splash_linux.h"
+#endif
 
 namespace py = pybind11;
 
